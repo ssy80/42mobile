@@ -1,0 +1,38 @@
+npm = installs tools into your toolbox
+npx = borrow a tool, use it, and return it automatically
+{} is used to insert JavaScript into JSX
+onPress={pickImageAsync} is equivalent to onPress: pickImageAsync
+
+1. create expo project
+- npx create-expo-app@latest mobile00
+- cd mobile00//sudo npm install --global @expo/ngrok@^4.1.0
+npm install @expo/ngrok
+npm run start:tunnel
+npx expo start --tunnel
+
+//- npm run android
+//- npm run ios # you need to use macOS to build the iOS project - use the Expo app if you need to do iOS development without a Mac
+//- npm run web
+
+
+
+
+Expo 
+
+npx expo start --tunnel
+npx expo install expo-image
+npx expo install expo-image-picker
+npx expo install react-native-view-shot expo-media-library
+npm install dom-to-image
+
+
+EAS
+OPTION 1 — Install EAS CLI (free) and do cloud builds
+npm install -g eas-cli
+eas login
+
+Generate apk
+eas build -p android --profile preview
+
+Generate AAB (for playstore)
+eas build -p android
