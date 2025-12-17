@@ -10,7 +10,7 @@ export default function Ex00() {
       </Button>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

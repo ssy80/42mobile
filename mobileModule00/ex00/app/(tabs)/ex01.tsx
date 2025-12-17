@@ -7,7 +7,7 @@ export default function Ex01() {
 
     function toggleMessage() {
       setMessage(
-        pre => pre === "A simple text" ? "Hello World!" : "A simple text"
+        value => value === "A simple text" ? "Hello World!" : "A simple text"
       );
     }
 
@@ -19,7 +19,7 @@ export default function Ex01() {
           </Button>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

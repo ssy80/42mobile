@@ -1,106 +1,112 @@
 import { View, StyleSheet } from 'react-native';
-import { Text, Button } from 'react-native-paper';
-import React, { useState } from 'react';
-import { TextInput } from "react-native-paper";
-
+import { TextInput, Button } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
 
 export default function Ex02() {
-    const [text, setText] = useState("0");
-    const keypad = [
-      ["7", "8", "9", "C", "AC"],
-      ["4", "5", "6", "+", "-"],
-      ["1", "2", "3", "*", "/"],
-      ["0", ".", "", "=", ""],
-    ];
+  const [calInput, setCalInput] = useState("0");
+  const [calResult, setCalResult] = useState("0");
+  
+  const keypad = [
+    ["7", "8", "9", "C", "AC"],
+    ["4", "5", "6", "+", "-"],
+    ["1", "2", "3", "*", "/"],
+    ["0", ".", "", "=", ""],
+  ];
 
-    function onPress(key: string){
-      setText(pre => pre === "0" ? key : pre + key);
-    }
-    
-    return (
-      <View>
-        <TextInput
-          //label="Message"
-          value={text}
-          onChangeText={setText}
-          mode="flat"
-          multiline
-          editable={false}
-          underlineColor="transparent"
-          numberOfLines={4}   // height
-          //style={{ margin: 16 }}
-          style={{
-            //backgroundColor: "transparent", // remove background
-            //backgroundColor: "#000",   // <-- BLACK BACKGROUND
-            color: "#ffffff",             // <-- WHITE TEXT
-            //margin: 16,
-            textAlign: "right"
-          }}
-        />
-        <TextInput
-          //label="Message"
-          value={text}
-          onChangeText={setText}
-          mode="flat"
-          multiline
-          editable={false}
-          underlineColor="transparent"
-          numberOfLines={4}   // height
-          //style={{ margin: 16 }}
-          style={{
-            //backgroundColor: "transparent", // remove background
-            //backgroundColor: "#000",   // <-- BLACK BACKGROUND
-            color: "#ffffff",             // <-- WHITE TEXT
-            //margin: 16,
-            textAlign: "right"
-          }}
-        />
 
-        <View style={{ padding: 16 }}>
-          {keypad.map((row, rowIndex) => (
-            <View
-              key={rowIndex}
-              style={{
-                flexDirection: "row",
-                marginBottom: 12,
-              }}
-            >
-              {row.map((key, colIndex) =>
-                key ? (
-                  // normal button
-                  <Button
-                    key={colIndex}
-                    mode="contained"
-                    textColor="#fff"
-                    buttonColor={
-                      ["+", "-", "*", "/", "C", "AC", "="].includes(key)
-                        ? "#ff9500"
-                        : "#000"
-                    }
-                    style={{
-                      flex: 1,
-                      marginHorizontal: 4,
-                      paddingVertical: 6,
-                    }}
-                    onPress={() => onPress(key)}
-                  >
-                    {key}
-                  </Button>
-                ) : (
-                  // EMPTY placeholder — keeps grid aligned
-                  <View
-                    key={colIndex}
-                    style={{
-                      flex: 1,
-                      marginHorizontal: 4,
-                    }}
-                  />
-                )
-              )}
-            </View>
-          ))}
+  function onPress(key: string) {
+
+    console.log(`Button pressed: ${key}`);
+
+  }
+
+  return (
+    <SafeAreaView className="flex-1 bg-black border-4 border-yellow-400">
+
+      {/* CENTER WRAPPER */}
+      <View className="flex-1 items-center justify-center px-4">
+
+        {/* CALCULATOR BODY */}
+        <View className="w-full max-w-md">
+
+          {/* Text Input */}
+          <View className="mb-6">
+            <TextInput
+              value={calInput}
+              editable={false}
+              multiline
+              numberOfLines={4}
+              mode="flat"
+              underlineColor="transparent"
+              className="bg-transparent text-black text-3xl bg-white"
+              style={styles.text_align_right_input}
+            />
+
+            <TextInput
+              value={calResult}
+              editable={false}
+              multiline
+              numberOfLines={4}
+              mode="flat"
+              underlineColor="transparent"
+              className="bg-transparent text-white text-3xl bg-white"
+              style={styles.text_align_right_input}
+            />
+          </View>
+
+          {/* Keypad */}
+          <View className="p-4">
+            {keypad.map((row, r) => (
+              <View key={r} className="flex-row mb-3">
+                {row.map((key, c) =>
+                  key ? (
+                    <Button
+                      key={c}
+                      mode="contained"
+                      compact={true}
+                      onPress={() => onPress(key)}
+                      className="flex-1 mx-1 py-2"
+                      buttonColor={getButtonColor(key)}
+                      textColor="#ffffff"
+                    >
+                      {key}
+                    </Button>
+                  ) : (
+                    <View key={c} className="flex-1 mx-1" />
+                  )
+                )}
+              </View>
+            ))}
+          </View>
+
         </View>
-
       </View>
-    );
+    </SafeAreaView>
+  );
+
 }
+
+const getButtonColor = (key: string) => {
+
+  if (key === "=" ) {
+    return "#90EE90";
+  }
+
+  if (key === "C" || key === "AC") {
+    return "#5ac8fa";
+  }
+
+  if (["+", "-", "*", "/", "="].includes(key)) {
+    return "#ff9500";
+  }
+
+  return "#1c1c1c";
+};
+
+const styles = StyleSheet.create({
+  text_align_right_input: {
+    textAlign: "right",
+    writingDirection: "ltr"
+  },
+});

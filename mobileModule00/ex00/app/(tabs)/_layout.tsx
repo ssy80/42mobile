@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import "nativewind";
 
 
 export default function TabLayout() {
@@ -40,9 +41,19 @@ export default function TabLayout() {
       <Tabs.Screen
         name="ex02"
         options={{
-          title: 'ex02',
+          title: 'Calculator',
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} color={color} size={24}/>
+            <Ionicons name={focused ? 'calculator' : 'calculator-outline'} color={color} size={24}/>
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="calculator_app"
+        options={{
+          title: 'Calculator',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'calculator' : 'calculator-outline'} color={color} size={24}/>
           ),
         }}
       />
