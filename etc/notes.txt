@@ -24,7 +24,7 @@ npx expo install expo-image
 npx expo install expo-image-picker
 npx expo install react-native-view-shot expo-media-library
 npm install dom-to-image
-
+npx expo install expo-location
 
 EAS
 OPTION 1 — Install EAS CLI (free) and do cloud builds
