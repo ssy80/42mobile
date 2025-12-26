@@ -8,17 +8,41 @@ import CurrentlyScreen from './CurrentlyScreen';
 import TodayScreen from './TodayScreen';
 import WeeklyScreen from './WeeklyScreen';
 import { JSX } from 'react/jsx-runtime';
+import * as Location from 'expo-location';
+import { Portal, Modal, ActivityIndicator, Text } from 'react-native-paper';
+import { useState } from 'react';
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function Home(): JSX.Element {
     const insets = useSafeAreaInsets();
-    const { setQuery } = useSearch();
-    const { tempQuery, setTempQuery } = useSearch();
-  
-    const onPressLocation = () => {
-        setQuery("Geolocation");
+    const { setQuery, tempQuery, setTempQuery, setGeolocation } = useSearch();
+    const [loadingLocation, setLoadingLocation] = useState(false);
+
+    const onPressLocation = async (): Promise<void> => {
+        setLoadingLocation(true);
+
+        try {
+            const { status } = await Location.requestForegroundPermissionsAsync();
+
+            if (status === "granted") {
+                const loc = await Location.getCurrentPositionAsync({});
+                setGeolocation(`${loc.coords.latitude},${loc.coords.longitude}`);
+            } else {
+                setGeolocation("no gps permission");
+            }
+        } catch (e) {
+            setGeolocation("gps error");
+        } finally {
+            setLoadingLocation(false);
+        }
+
     };
+
+    const searchPress = () => {
+        setQuery(tempQuery);
+        setGeolocation("");
+    }
 
     return (
         <View style={styles.container}>
@@ -29,7 +53,7 @@ export default function Home(): JSX.Element {
             placeholder=""
             value={tempQuery}
             onChangeText={setTempQuery}
-            onIconPress={() => setQuery(tempQuery)}
+            onIconPress={() => searchPress()}
             style={styles.searchBar}
             elevation={0}
             />
@@ -44,11 +68,11 @@ export default function Home(): JSX.Element {
                 tabBarShowIcon: true,
                 tabBarIndicatorStyle: styles.tabBarIndicator,
                 tabBarStyle: {
-                    backgroundColor: '#ffffff',
+                    backgroundColor: "#ffffff",
                     paddingBottom: insets.bottom,
                 },
-                tabBarActiveTintColor: '#000000',
-                tabBarInactiveTintColor: '#9e9e9e',
+                tabBarActiveTintColor: "#000000",
+                tabBarInactiveTintColor: "#9e9e9e",
                 tabBarLabelStyle: styles.tabBarLabel,
             }}
         >
@@ -82,6 +106,17 @@ export default function Home(): JSX.Element {
             }}
             />
         </Tab.Navigator>
+
+        {/* MODAL GOES HERE */}
+        <Portal>
+            <Modal visible={loadingLocation} dismissable={false}>
+                <View className="bg-white rounded-lg p-6 mx-8 items-center">
+                    <ActivityIndicator size="large" />
+                    <Text className="mt-4 text-base">Getting your location…</Text>
+                </View>
+            </Modal>
+        </Portal>
+
         </View>
     );
 }
@@ -93,7 +128,7 @@ const styles = StyleSheet.create({
     },
 
     appBar: {
-        backgroundColor: '#ffffff',
+        backgroundColor: "#ffffff",
     },
 
     searchBar: {
@@ -103,11 +138,11 @@ const styles = StyleSheet.create({
 
     tabBarLabel: {
         fontSize: 12,
-        textTransform: 'none',
+        textTransform: "none",
     },
 
     tabBarIndicator: {
-        backgroundColor: '#cf2b2bff',
+        backgroundColor: "#cf2b2bff",
         height: 2,
     }
 });

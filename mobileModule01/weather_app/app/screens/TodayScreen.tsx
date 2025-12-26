@@ -7,10 +7,6 @@ import { JSX } from 'react/jsx-runtime';
 export default function TodayScreen(): JSX.Element   {
   const { query } = useSearch();
 
-  const onPressLocation = () => {
-    console.log("Get current location");
-  };
-
   return (
       <View style={styles.container}>
         <Text variant="bodyLarge">Today</Text>
