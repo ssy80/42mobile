@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "ex00",
-    "slug": "ex00",
+    "name": "calculator_app",
+    "slug": "calculator_app",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
-    "scheme": "ex00",
+    "scheme": "calculator_app",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

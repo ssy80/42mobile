@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "ex00",
-    "slug": "ex00",
+    "name": "ex02",
+    "slug": "ex02",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
-    "scheme": "ex00",
+    "scheme": "ex02",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
