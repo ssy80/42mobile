@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
-import { useSearch } from '@/context/search_context';
+import { useSearch } from '../../context/search_context';
 import { JSX } from 'react/jsx-runtime';
 
 

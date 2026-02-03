@@ -3,7 +3,7 @@ import { Appbar, Searchbar } from 'react-native-paper';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useSearch } from '@/context/search_context';
+import { useSearch } from '../../context/search_context';
 import CurrentlyScreen from './CurrentlyScreen';
 import TodayScreen from './TodayScreen';
 import WeeklyScreen from './WeeklyScreen';
