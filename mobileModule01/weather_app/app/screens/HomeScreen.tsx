@@ -13,8 +13,7 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function Home(): JSX.Element {
     const insets = useSafeAreaInsets();
-    const { setQuery } = useSearch();
-    const { tempQuery, setTempQuery } = useSearch();
+    const { query, setQuery } = useSearch();
   
     const onPressLocation = () => {
         setQuery("Geolocation");
@@ -27,9 +26,8 @@ export default function Home(): JSX.Element {
         <Appbar.Header style={styles.appBar}>
             <Searchbar
             placeholder=""
-            value={tempQuery}
-            onChangeText={setTempQuery}
-            onIconPress={() => setQuery(tempQuery)}
+            value={query}
+            onChangeText={(val) => setQuery(val)}
             style={styles.searchBar}
             elevation={0}
             />
